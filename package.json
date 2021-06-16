@@ -1,0 +1,8 @@
+{
+  "name": "mf-vue3-ts-common",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "description": "基于vue-cli 5 beta版的vue3+ts项目模板以支持webpack5 module federation",
+  "author": "kingshuaishuai"
+}
