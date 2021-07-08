@@ -1,3 +1,5 @@
+const path = require('path')
+const { GenerateDtsPlugin } = require('@masons/generate-types')
 const pkg = require('./package.json')
 const deps = pkg.dependencies
 
@@ -69,5 +71,10 @@ module.exports = {
             }
           }
       }])
+
+      config.use(GenerateDtsPlugin, [{
+        savedPath: path.resolve(__dirname, 'dist'),
+        moduleName: '<%= customInfo.moduleName %>'}
+      ])
   },
 }
