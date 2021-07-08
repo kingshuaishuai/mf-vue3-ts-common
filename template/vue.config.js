@@ -72,9 +72,12 @@ module.exports = {
           }
       }])
 
-      config.use(GenerateDtsPlugin, [{
-        savedPath: path.resolve(__dirname, 'dist'),
-        moduleName: '<%= customInfo.moduleName %>'}
-      ])
+      config
+        .plugin('gdts')
+        .use(GenerateDtsPlugin, [{
+          savedPath: path.resolve(__dirname, 'dist'),
+          moduleName: 'chat-ui',
+          filename: 'chat-ui'
+        }])
   },
 }
