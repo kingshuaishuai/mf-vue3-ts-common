@@ -1,7 +1,12 @@
-const path = require('path')
 const { GenerateDtsPlugin } = require('@masons/generate-types')
 const pkg = require('./package.json')
 const deps = pkg.dependencies
+
+const env = process.env.NODE_ENV
+
+function isProd() {
+  return env === 'production'
+}
 
 module.exports = {
   devServer: {
@@ -44,7 +49,6 @@ module.exports = {
       config
         .plugin('module-federation-plugin')
         .use(require('webpack').container.ModuleFederationPlugin, [{
-          library: { type: 'var', name: '<%= customInfo.moduleName %>' },
           name: "<%= customInfo.moduleName %>",
           filename: "remoteEntry.js",
           remotes: {},
@@ -72,12 +76,14 @@ module.exports = {
           }
       }])
 
-      config
+      if (isProd()) {
+        config
         .plugin('gdts')
         .use(GenerateDtsPlugin, [{
-          savedPath: path.resolve(__dirname, 'dist'),
-          moduleName: 'chat-ui',
-          filename: 'chat-ui'
+          savedPath: 'dist',
+          moduleName: '<%= customInfo.moduleName %>',
+          filename: '<%= customInfo.moduleName %>.d.ts'
         }])
+      }
   },
 }
